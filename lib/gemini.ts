@@ -62,8 +62,9 @@ async function withRetry<T>(
 export async function processSurveyRecord(rawText: string): Promise<Partial<CommunityNeed>> {
   try {
     const result = await withRetry(async () => {
+      // Use latest stable flash model
       const model = genAI.getGenerativeModel({
-        model: 'gemini-1.5-flash',
+        model: 'gemini-1.5-flash-latest',
         systemInstruction:
           'You are a community needs analyst. Extract structured data from NGO survey responses. Always respond with valid JSON only, no markdown.',
         generationConfig: { responseMimeType: 'application/json' },
@@ -72,7 +73,7 @@ export async function processSurveyRecord(rawText: string): Promise<Partial<Comm
       const prompt = `Extract from this survey text: 1) need category (exactly one of: medical/food/education/housing/safety/other), 2) urgency score 1-10 (10=life threatening, 1=minor improvement), 3) location/area name as a string, 4) affected population count (estimate if not stated), 5) clear title (max 8 words), 6) description (max 30 words). Survey text: ${rawText}. Return JSON: { "category": "", "urgencyScore": 0, "location": "", "affectedCount": 0, "title": "", "description": "" }`;
 
       return await model.generateContent(prompt);
-    }, 'processSurveyRecord', 5, 2000); // More retries, longer base delay
+    }, 'processSurveyRecord', 5, 2000);
 
     const responseText = result.response.text();
     const data = JSON.parse(cleanJsonResponse(responseText));

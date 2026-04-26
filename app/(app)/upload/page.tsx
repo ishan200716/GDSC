@@ -281,9 +281,10 @@ export default function UploadPage() {
       toast.success(`Successfully saved ${processed.length} records`, { id: 'geocoding' });
       setPhase('completed');
       setProcessed([]);
-    } catch (err) {
-      console.error('Upload Error:', err);
-      toast.error('Failed to save data to database', { id: 'geocoding' });
+    } catch (err: any) {
+      console.error('Upload Error Details:', err);
+      const errorMsg = err?.message || 'Check connection';
+      toast.error(`Database Error: ${errorMsg}`, { id: 'geocoding' });
       setPhase('preview');
     } finally {
       setSaving(false);
