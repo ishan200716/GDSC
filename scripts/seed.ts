@@ -1,9 +1,9 @@
-import { NextResponse } from 'next/server';
-import { db } from '../../../lib/firebase';
+import { db } from '../lib/firebase';
 import { collection, writeBatch, doc } from 'firebase/firestore';
-import { NeedCategory, NeedStatus, SkillType, DayOfWeek } from '../../../types';
+import { NeedCategory, NeedStatus, SkillType, DayOfWeek } from '../types';
 
-export async function GET() {
+async function seed() {
+  console.log('Starting seed...');
   try {
     const batch = writeBatch(db);
 
@@ -136,10 +136,10 @@ export async function GET() {
     }
 
     await batch.commit();
-
-    return NextResponse.json({ message: "Seeding completed successfully" });
+    console.log('Seeding completed successfully');
   } catch (error) {
-    console.error("Seeding error:", error);
-    return NextResponse.json({ error: "Failed to seed data" }, { status: 500 });
+    console.error('Seeding error:', error);
   }
 }
+
+seed();

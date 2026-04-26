@@ -32,8 +32,12 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
 export const auth = getAuth(app);
-export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Initialize Firestore with a check to avoid issues during static pre-rendering if needed
+// However, the standard getFirestore is usually fine. 
+// We'll keep it simple but ensure env vars are checked.
+export const db = getFirestore(app);
 
 // Helper functions for Collections
 const NEEDS_COLLECTION = 'needs';
