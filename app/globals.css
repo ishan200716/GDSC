@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #0f131f;
+    --on-background: #dfe2f3;
+    --surface: #0f131f;
+    --on-surface: #dfe2f3;
+    --surface-dim: #0f131f;
+    --surface-bright: #353946;
+    --surface-container-lowest: #0a0e1a;
+    --surface-container-low: #171b28;
+    --surface-container: #1b1f2c;
+    --surface-container-high: #262a37;
+    --surface-container-highest: #313442;
+    --on-surface-variant: #bacac7;
+    --inverse-surface: #dfe2f3;
+    --inverse-on-surface: #2c303d;
+    --surface-tint: #24ddd1;
+    --surface-variant: #313442;
+    --primary: #47f1e4;
+    --on-primary: #003733;
+    --primary-container: #00d4c8;
+    --on-primary-container: #005651;
+    --inverse-primary: #006a64;
+    --primary-fixed: #54faed;
+    --primary-fixed-dim: #24ddd1;
+    --on-primary-fixed: #00201e;
+    --on-primary-fixed-variant: #00504b;
+    --secondary: #d2bbff;
+    --on-secondary: #3f008e;
+    --secondary-container: #6001d1;
+    --on-secondary-container: #c9aeff;
+    --secondary-fixed: #eaddff;
+    --secondary-fixed-dim: #d2bbff;
+    --on-secondary-fixed: #25005a;
+    --on-secondary-fixed-variant: #5a00c6;
+    --tertiary: #ffcfc0;
+    --on-tertiary: #5d1900;
+    --tertiary-container: #ffa88b;
+    --on-tertiary-container: #8d2a00;
+    --tertiary-fixed: #ffdbd0;
+    --tertiary-fixed-dim: #ffb59d;
+    --on-tertiary-fixed: #390c00;
+    --on-tertiary-fixed-variant: #832600;
+    --error: #ffb4ab;
+    --on-error: #690005;
+    --error-container: #93000a;
+    --on-error-container: #ffdad6;
+    --outline: #849491;
+    --outline-variant: #3b4a48;
+  }
+}
+
+body {
+  background-color: var(--background);
+  color: var(--on-background);
+}
+
+/* Shimmer skeleton animation */
+@keyframes shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.04) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
