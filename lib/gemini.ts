@@ -41,13 +41,14 @@ async function withRetry<T>(
     }
   }
 
-  // all attempts exhausted
-  const msg = lastError instanceof Error ? lastError.message : 'Unknown error';
-  console.error(`[Gemini] ${label} — all ${maxAttempts} attempts failed:`, lastError);
-
   try {
-    const displayMsg = msg.includes('403') ? 'Invalid API Key' : msg.includes('429') ? 'Quota Exceeded' : label;
+    const errorMsg = lastError instanceof Error ? lastError.message : String(lastError);
+    const displayMsg = errorMsg.includes('403') ? 'Invalid API Key' : 
+                       errorMsg.includes('429') ? 'Quota Exceeded' : 
+                       errorMsg.includes('404') ? 'Model Not Found' : 
+                       label;
     toast.error(`AI service error: ${displayMsg}`, errorToastStyle as any);
+    console.error(`[Gemini Error Detail]:`, errorMsg);
   } catch {
     // toast may not be available in server context — fail silently
   }
